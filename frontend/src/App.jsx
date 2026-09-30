@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Header } from './components/Header';
 import { ChangeEmailVulnerable } from './components/ChangeEmailVulnerable';
 import { ChangeEmailSecure } from './components/ChangeEmailSecure';
+import { Footer } from './components/Footer';
 
-function App() {
+export default function App() {
+  const [activeTab, setActiveTab] = useState('vulnerable');
+
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1 className="app-title">Laboratorio Práctico de Mitigación CSRF</h1>
-        <p className="app-subtitle">Demostración de vulnerabilidad y protección mediante Tokens Anti-CSRF</p>
-      </header>
-
-      <div className="modules-grid">
-        <ChangeEmailVulnerable />
-        <ChangeEmailSecure />
+    <div className="min-h-screen bg-[#090d16] text-gray-100 flex flex-col justify-between">
+      <div>
+        <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+        
+        <main className="max-w-5xl mx-auto px-4 py-8">
+          {activeTab === 'vulnerable' && <ChangeEmailVulnerable />}
+          {activeTab === 'secure' && <ChangeEmailSecure />}
+        </main>
       </div>
+
+      <Footer />
     </div>
   );
 }
-
-export default App;
