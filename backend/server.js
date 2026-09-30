@@ -6,7 +6,14 @@ const app = express();
 const PORT = 4000;
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5501', 'http://localhost:5501'],
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:5174',
+    'http://127.0.0.1:5501',
+    'http://localhost:5501'
+  ],
   credentials: true
 }));
 
@@ -23,7 +30,7 @@ app.use((req, res, next) => {
   if (!req.cookies.session_id) {
     res.cookie('session_id', userSession.id, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'lax', // Permite el envio de cookies en desarrollo HTTP local
       secure: false
     });
   }
